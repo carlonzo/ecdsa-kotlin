@@ -1,12 +1,13 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     kotlin("multiplatform") version "1.8.21"
     id("com.vanniktech.maven.publish") version "0.25.2"
 }
 
-group = "com.carterharrison"
-version = "0.1.0-beta1"
+group = "com.carlonzo.ecdsa"
+version = "0.1.0"
 
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -38,6 +39,30 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
             }
+        }
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.S01)
+
+    signAllPublications()
+
+    pom {
+        name.set("ecdsa")
+        inceptionYear.set("2023")
+        url.set("https://github.com/carlonzo/ecdsa-kotlin")
+        developers {
+            developer {
+                id.set("carlonzo")
+                name.set("Carlo Marinangeli")
+                url.set("https://github.com/carlonzo")
+            }
+        }
+        scm {
+            url.set("https://github.com/carlonzo/ecdsa-kotlin")
+            connection.set("scm:git:git://github.com/carlonzo/ecdsa-kotlin.git")
+            developerConnection.set("scm:git:ssh://git@github.com/carlonzo/ecdsa-kotlin.git")
         }
     }
 }
