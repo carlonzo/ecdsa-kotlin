@@ -38,6 +38,6 @@ object EcKeyGenerator {
     private val random32BytePrivateKey : BigInteger
         get() {
             val randomBytes = SecureRandom().nextBytesOf(32)
-            return BigInteger.fromByteArray(randomBytes, Sign.POSITIVE).abs()
+            return BigInteger.fromByteArray(randomBytes, Sign.POSITIVE)
         }
 }

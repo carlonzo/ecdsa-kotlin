@@ -1,6 +1,7 @@
 package com.carterharrison.ecdsa
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
+import com.ionspin.kotlin.bignum.integer.Sign
 
 
 /**
@@ -46,5 +47,35 @@ class EcPoint (val x : BigInteger, val y : BigInteger, val curve: EcCurve) {
 
     override fun hashCode(): Int {
         return x.hashCode() + y.hashCode()
+    }
+
+    val xByteArray: ByteArray
+        get() {
+            val xarray = x.toByteArray()
+            return if (xarray[0].toInt() < 0){
+                byteArrayOf(0, *xarray)
+            } else {
+                xarray
+            }
+        }
+
+    val yByteArray: ByteArray
+        get() {
+            val yarray = y.toByteArray()
+            return if (yarray[0].toInt() < 0){
+                byteArrayOf(0, *yarray)
+            } else {
+                yarray
+            }
+        }
+
+    companion object {
+        fun parseFromByteArray(x: ByteArray, y: ByteArray, curve: EcCurve): EcPoint {
+            return EcPoint(
+                x = BigInteger.fromByteArray(x, Sign.POSITIVE),
+                y = BigInteger.fromByteArray(y, Sign.POSITIVE),
+                curve = curve
+            )
+        }
     }
 }

@@ -18,6 +18,17 @@ class EcPointTest {
     )
   }
 
+  @Test
+  fun parse() {
+    val keypair = EcKeyGenerator.newInstance(Secp256k1)
+    val publicKeyX = keypair.publicKey.xByteArray
+    val publicKeyY = keypair.publicKey.yByteArray
+
+    val parsedPublicKey = EcPoint.parseFromByteArray(publicKeyX, publicKeyY, Secp256k1)
+
+    assertEquals(keypair.publicKey, parsedPublicKey)
+  }
+
 //    @Test
 //    fun mutpily () {
 //        val g = EcPoint(Secp256k1.x, Secp256k1.y, Secp256k1)
