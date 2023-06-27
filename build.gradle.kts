@@ -50,8 +50,16 @@ mavenPublishing {
 
     pom {
         name.set("ecdsa")
+        description.set("Elliptic Curve Digital Signature Algorithm")
         inceptionYear.set("2023")
         url.set("https://github.com/carlonzo/ecdsa-kotlin")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/licenses/MIT")
+                distribution.set("repo")
+            }
+        }
         developers {
             developer {
                 id.set("carlonzo")
